@@ -1,0 +1,5 @@
+------------------------------------------------------------------Plantillas usadas---------------------------------------------------
+MyWebSolution-bussines template
+
+La libreria del mysql connector esta en el directorio del servidor.--> el context-xml esta configurado en eclipse aun que se podria configurar en la carpeta del apache de fuera que seria 
+el caso del uso de un servidor real no para debugear.
