@@ -124,11 +124,22 @@
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Servicios <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Reformas</a></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown">Reformas<b class="caret"></b></a>
+									<ul class="dropdown-menu sub-menu">
+										<li><a href="#">Reformas baños.</a></li>
+										<li><a href="#">Reformas de cocinas.</a></li>
+										<li><a href="#">Reformas de generales.</a></li>
+									</ul></li>
+								<li>
 								<li><a href="#">Instalaciones</a></li>
 								<li><a href="#">Mantenimiento</a></li>
 							</ul></li>
-							<li><div><a class="btn btn-brand" href="#">Pedir presupuesto</a></div></li>
+						<li>
+							<div>
+								<a class="btn btn-brand" href="#">Pedir presupuesto</a>
+							</div>
+						</li>
 						<li><a href="#about">Quienes somos</a></li>
 						<li><a href="#contact">Contacto</a></li>
 					</ul>
@@ -204,8 +215,9 @@
 
 				</div>
 				<div class="col-md-4 align-right">
-					<h4>Pede presupuestos orientativos ilimitados!
-					<br></h4>
+					<h4>
+						Pede presupuestos orientativos ilimitados! <br>
+					</h4>
 					<a class="btn btn btn-brand" href="#">Pedir presupuesto!</a>
 					</p>
 				</div>
@@ -445,7 +457,7 @@
 		</div>
 	</div>
 
-<!-- 
+	<!-- 
 	<div class="testimonails">
 		<div class="container">
 			<blockquote class="">
@@ -462,22 +474,31 @@
 		<div class="row">
 			<div class="col-md-4">
 				<h3 class="title">¿Porque elegir a nosotros?</h3>
-				<p>Nuestra empresa cuida a sus clientes y sus pertenecias inmobiliarias tal como las mobiliarias.</p>
-				<p>Usted puede contar con nuestra empresa para todo relacionado con
-					las reformas y el mantenimiento de su local,vivienda o
-					edificio sin ninguna preocupacion.Disponemos de muchos profesionales experenciados en
-					reformas de baños, hoteles, cocinas, oficinas, fachadas, locales
-					comerciales, viviendas y mucho mas. Relizamos varios tipos de
-					instalaciones como las de electrodomesticos y cocinas,montajes de
-					muebles etc.</p>
-				<p>Disponemos de un servicio de atención al cliente.Durante todo el proceso del trabajo en la obra Y A POSTERIORI.</p>
-				<p>Esta plataforma web esta especialmente diseñada para nuestros clientes.Y con ella intentamos a facilitar lo máximo posible el proceso de contratación,facturación,segumiento del trabajo realizado por nosotros y la plaificación del plazo en que el trabajo se va realizar.</p>
-				<p>Esta una de las primeras plataformas que proporciona herramientas como:</p>
+				<p>Nuestra empresa cuida a sus clientes y sus pertenecias
+					inmobiliarias tal como las mobiliarias.</p>
+				<p>Usted puede contar con nuestra empresa para todo relacionado
+					con las reformas y el mantenimiento de su local,vivienda o edificio
+					sin ninguna preocupacion.Disponemos de muchos profesionales
+					experenciados en reformas de baños, hoteles, cocinas, oficinas,
+					fachadas, locales comerciales, viviendas y mucho mas. Relizamos
+					varios tipos de instalaciones como las de electrodomesticos y
+					cocinas,montajes de muebles etc.</p>
+				<p>Disponemos de un servicio de atención al cliente.Durante todo
+					el proceso del trabajo en la obra Y A POSTERIORI.</p>
+				<p>Esta plataforma web esta especialmente diseñada para nuestros
+					clientes.Y con ella intentamos a facilitar lo máximo posible el
+					proceso de contratación,facturación,segumiento del trabajo
+					realizado por nosotros y la plaificación del plazo en que el
+					trabajo se va realizar.</p>
+				<p>Esta una de las primeras plataformas que proporciona
+					herramientas como:</p>
 				<ul>
-					<li>Seguimiento orientativo del progreso del trabajo en estadistica cada dia.</li>
+					<li>Seguimiento orientativo del progreso del trabajo en
+						estadistica cada dia.</li>
 					<li>Facturacion automática.</li>
 					<li>Proceso de pago automatizado.</li>
-					<li>Generación autmática de fechas aproximadas de la realización del trabajo.</li>
+					<li>Generación autmática de fechas aproximadas de la
+						realización del trabajo.</li>
 				</ul>
 			</div>
 			<div class="col-md-8">
@@ -638,11 +659,11 @@
 	<!-- footerBottomSection -->
 	<div class="footerBottomSection">
 		<div class="container">
-			&copy; 2017, Todos los derechos reservados. <a href="#">Términos y condiciones</a> |
-			<a href="#">Condiciones de privacidad</a>
+			&copy; 2017, Todos los derechos reservados. <a href="#">Términos
+				y condiciones</a> | <a href="#">Condiciones de privacidad</a>
 			<div class="pull-right">
-				<a href="index.html"><img style="width:30%;height:30%;" src="assets/custom/img/logofooter.png"
-					alt="My web solution" /></a>
+				<a href="index.html"><img style="width: 30%; height: 30%;"
+					src="assets/custom/img/logofooter.png" alt="My web solution" /></a>
 			</div>
 		</div>
 	</div>
@@ -669,12 +690,12 @@
 
 
 	<script type="text/javascript">
-    jQuery(document).ready(function() {
-      	App.init();
-        App.initSliders();
-        Index.initParallaxSlider();
-    });
-</script>
+		jQuery(document).ready(function() {
+			App.init();
+			App.initSliders();
+			Index.initParallaxSlider();
+		});
+	</script>
 
 
 </body>
