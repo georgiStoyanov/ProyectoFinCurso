@@ -1,5 +1,10 @@
 ------------------------------------------------------------------Plantillas usadas---------------------------------------------------
 MyWebSolution-bussines template
+Dashgum free admin
 
+---------------------------------------------------------
 La libreria del mysql connector esta en el directorio del servidor.--> el context-xml esta configurado en eclipse aun que se podria configurar en la carpeta del apache de fuera que seria 
 el caso del uso de un servidor real no para debugear.
+
+
+La parte del usuario esta hecha con MyWebSoluition y la parte de los trabajadores esta hecha con dashgum.
