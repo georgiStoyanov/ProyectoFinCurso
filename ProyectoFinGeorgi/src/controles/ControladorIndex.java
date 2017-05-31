@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelos.Comentario;
+
 /**
  * Servlet implementation class ControladorIndex
  */
@@ -34,7 +36,8 @@ public class ControladorIndex extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Comentario coment=(Comentario)request.getAttribute("bean");
+		System.out.println(""+coment);
 	}
 
 }

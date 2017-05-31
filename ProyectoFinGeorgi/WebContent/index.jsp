@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,6 +11,12 @@
 	media="all">
 <link href="assets/custom/css/w3.css" rel="stylesheet" type="text/css"
 	media="all">
+					<!-- /--------------------JSP-------------------------------------------- -->
+				<jsp:useBean id="bean" class="modelos.Comentario" scope="request"/>
+				<jsp:setProperty property="*" name="bean"/>
+				<%if(request.getParameter("bean")!=null){%>
+   						<jsp:forward page="/ProyectoFinGeorgi/ControladorIndex"/>
+				<%}%>
 </head>
 <body id="top">
 	<!-- ################################################################################################ -->
@@ -243,14 +249,14 @@
 				<p>Se puede poner en contacto con nosotros para cualquier
 					duda que tiene.Un agente le contestara lo antes posible.</p>
 
-				<form id="newsletter" method="post">
+				<form  id="newsletter" method="post">
 					<fieldset>
 						<legend>Contacto</legend>
-						<input class="btmspace-15" type="text" value=""
+						<input class="btmspace-15" type="text" name="name"
 							placeholder="Nombre" /> 
 						<input class="btmspace-15" type="text"
-							value="" placeholder="Email" /> 
-						<textarea class="btmspace-15" style="width:100%;height:7em;"placeholder="Su comentario..."></textarea>
+							name="email" placeholder="Email" /> 
+						<textarea class="btmspace-15" name="content" style="width:100%;height:7em;"placeholder="Su comentario..."></textarea>
 						<button type="submit" value="submit">Enviar</button>
 					</fieldset>
 				</form>
