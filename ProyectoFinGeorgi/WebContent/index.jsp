@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="modelos.Comentario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Devenna</title>
+<title>El Martillo</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css"
+<link href="./layout/styles/layout.css" rel="stylesheet" type="text/css"
 	media="all">
-<link href="assets/custom/css/w3.css" rel="stylesheet" type="text/css"
+<link href="./assets/custom/css/w3.css" rel="stylesheet" type="text/css"
 	media="all">
-					<!-- /--------------------JSP-------------------------------------------- -->
-				<jsp:useBean id="bean" class="modelos.Comentario" scope="request"/>
-				<jsp:setProperty property="*" name="bean"/>
-				<%if(request.getParameter("bean")!=null){%>
-   						<jsp:forward page="/ProyectoFinGeorgi/ControladorIndex"/>
-				<%}%>
+<link href="./assets/MagnificPopUp/magnific-popup.css" rel="stylesheet" type="text/css"
+	media="all">
+<!-- /--------------------JSP-------------------------------------------- -->
+<jsp:useBean id="comentBean" class="modelos.Comentario" scope="request" />
+<jsp:setProperty name="comentBean" property="*" />
+<%if(request.getParameter("content")!=null && request.getParameter("email")!=null){%>
+<jsp:forward page="/ControladorComentario" />
+<%}%>
 </head>
 <body id="top">
 	<!-- ################################################################################################ -->
@@ -27,7 +29,7 @@
 			<!-- ################################################################################################ -->
 			<nav id="mainav" class="fl_left">
 			<ul class="clear">
-				<li class="active"><a href="index.html">El Martillo</a></li>
+				<li class="active"><a href="index.jsp">El Martillo</a></li>
 				<li><a class="drop" href="#">Reformas</a>
 					<ul>
 						<li><a href="#">Reformas Viviendas</a></li>
@@ -50,19 +52,20 @@
 				<li><a class="drop" href="#">Instalaciones</a>
 					<ul>
 						<li><a href="#">Electrodomésticos</a></li>
-						<li><a href="#">Aire acondicionado</a></li>
 						<li><a href="#">Muebles</a></li>
+						<li><a href="#">Aire acondicionado</a></li>
 						<li><a href="#">Antenas</a></li>
 						<li><a href="#">Electricistas</a></li>
 					</ul></li>
-				<li><a class="drop" href="#">Transporte</a>
+				<li><a class="drop" href="#">Otros</a>
 					<ul>
-						<li><a href="#">Mudanzas</a></li>
-						<li><a href="#">Muebles</a></li>
-						<li><a href="#">Materiales</a></li>
+						<li><a href="#">Desescombrar</a></li>
+						<li><a href="#">Montaje Muebles</a></li>
+						<li><a href="#">Instalación complementos</a></li>
+						<li><a href="#">Más</a></li>
 					</ul></li>
 
-				<li><a href="#" class="btn" style="padding: .8em">Pide
+				<li><a href="./presupuesto.jsp" class="btn" style="padding: .8em">Calcula
 						presupuesto</a></li>
 				<li><a href="#" class="active">Contacto</a></li>
 			</ul>
@@ -93,8 +96,8 @@
 		</div>
 		<div id="quickinfo" class="fl_right">
 			<ul class="nospace inline">
-				<li style="text-align: center;margin-top:1.5em;"><strong>Contacta con
-						nosotros:</strong><br> +34 611 381 940</li>
+				<li style="text-align: center; margin-top: 1.5em;"><strong>Contacta
+						con nosotros:</strong><br> +34 611 381 940</li>
 			</ul>
 		</div>
 		<!-- ################################################################################################ -->
@@ -110,11 +113,11 @@
 			<!-- ################################################################################################ -->
 			<article class="introtxt">
 			<h2 class="heading">Calcula tu presupuesto online</h2>
-			<p>Pide presupuestos ilimitados.</p>
+			<p>Calcula presupuestos ilimitados.</p>
 			<footer>
 			<ul class="nospace inline pushright">
-				<li><a class="btn" href="#">Pede Presupuesto</a></li>
-				<li><a class="btn inverse" href="#">Soy cliente</a></li>
+				<li><a class="btn" href="./presupuesto.jsp">Calcula Presupuesto</a></li>
+				<li><a class="btn inverse" id="soyCliente" href="#">Soy cliente</a></li>
 			</ul>
 			</footer> </article>
 			<button class="w3-button w3-display-left"
@@ -160,10 +163,10 @@
 			</article>
 			<article class="one_quarter"> <i class="icon fa fa-truck"></i>
 			<h4 class="font-x1 uppercase">
-				<a href="#">Transporte y materiales</a>
+				<a href="#">Otros servicios</a>
 			</h4>
-			<p>Servicios completos o por separado de tranposrtar materiales,
-				muebles o cualquier utilidad del interior.</p>
+			<p>Servicios completos o por separado de tranposrtar materiales,desescombrar,
+				montaje de muebles o cualquier utilidad del interior.</p>
 			</article>
 		</div>
 		<!-- ################################################################################################ -->
@@ -185,13 +188,13 @@
 			<figure id="logos">
 			<ul class="nospace group">
 				<li style="width: 30%; height: 30%;"><img
-						src="./assets/custom/img/project1.jpg" alt=""></li>
+					src="./assets/custom/img/project1.jpg" alt=""></li>
 				<li style="width: 30%; height: 30%;"><img
-						src="./assets/custom/img/project2.jpg" alt=""></li>
+					src="./assets/custom/img/project2.jpg" alt=""></li>
 				<li style="width: 30%; height: 30%;"><img
-						src="./assets/custom/img/bootstrap-templates-office1.png" alt=""></li>
+					src="./assets/custom/img/bootstrap-templates-office1.png" alt=""></li>
 				<li style="width: 50%; height: 50%;"><img
-						src="assets/custom/img/bootstrap-templates-office4.png" alt=""></li>
+					src="assets/custom/img/bootstrap-templates-office4.png" alt=""></li>
 			</ul>
 			<figcaption class="hidden"> <a href="#">More &raquo;</a>
 			</figcaption> </figure> <!-- ################################################################################################ -->
@@ -246,17 +249,21 @@
 				</section>
 				<section class="one_half">
 				<h6 class="heading font-x3 btmspace-50">Escríbenos</h6>
-				<p>Se puede poner en contacto con nosotros para cualquier
-					duda que tiene.Un agente le contestara lo antes posible.</p>
-
-				<form  id="newsletter" method="post">
-					<fieldset>
+				<p>Se puede poner en contacto con nosotros para cualquier duda
+					que tiene.Un agente le contestara lo antes posible.</p>
+				<div id="error_messages">
+				
+				</div>
+				<form id="newsletter" method="post">
+					<fieldset>	
 						<legend>Contacto</legend>
+						Nombre: 
 						<input class="btmspace-15" type="text" name="name"
 							placeholder="Nombre" /> 
-						<input class="btmspace-15" type="text"
-							name="email" placeholder="Email" /> 
-						<textarea class="btmspace-15" name="content" style="width:100%;height:7em;"placeholder="Su comentario..."></textarea>
+						Correo electrónico: <input
+							class="btmspace-15" type="email" name="email" placeholder="Email" />
+						Comentario:
+						<textarea class="btmspace-15" name="content" style="width: 100%; height: 7em;" placeholder="Su comentario..."></textarea>
 						<button type="submit" value="submit">Enviar</button>
 					</fieldset>
 				</form>
@@ -295,7 +302,22 @@
 	<!-- IE9 Placeholder Support -->
 	<script src="layout/scripts/jquery.placeholder.min.js"></script>
 	<!-- / IE9 Placeholder Support -->
+	
+	<!-- Magnific PopUp -->
+	<script src="./assets/MagnificPopUp/jquery.magnific-popup.min.js"></script>
+	
 	<script type="text/javascript">
+	//
+	$(document).ready(function() {
+
+	        
+		$('#soyCliente').magnificPopup({
+			  items: {
+			      src:'./Modals/login.jsp',
+			      type: 'iframe'
+			  }
+			});
+	    });
 		var currentSlide = 0;
 		var images = new Array();
 		images[0] = "./assets/custom/img/living-room.jpg";
