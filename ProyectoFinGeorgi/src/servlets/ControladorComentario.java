@@ -47,17 +47,26 @@ public class ControladorComentario extends HttpServlet {
 		comentario.setName(request.getParameter("name"));
 		
 		//Validacion hecha en el servidor de los campos obligatorios.Antes de abrir la coneccion.
-		if(comentario.getContent()!=null && comentario.getEmail()!=null){
+		if(comentario.getContent()!=null && comentario.getEmail()!=null && request.getParameter("email")!="" && request.getParameter("content")!=""){
+			System.out.println("------------------Peticion de grabar comentario!-------------------------");
+			System.out.println("email:_"+request.getParameter("email"));
+			System.out.println("content:_"+request.getParameter("content"));
 			ComentarioGeneralService comentService=new ComentarioGeneralService();
 			int ifGrabado=comentService.grabarComentario(comentario);
 			if(ifGrabado>0){
 				System.out.println("Grabado comentario con id:_"+ifGrabado);
+				System.out.println("--------------------------------------------------------------------------");
+				response.setContentType("text/plain");
+				response.setCharacterEncoding("charset=UTF-8");
+				response.getOutputStream().println("Su comentario se ha grabado!Gracias por darnos su opinion!");
 				//Avisar al cliente que se ha grabado.Usar Hashmap para pasar los mensajes y asignar el valor de mesanjes en un span o lo que sea 
 			}else{
 				//Avisar cliente que no se ha grabado.
+				response.getOutputStream().println("Su comentario se ha grabado!Gracias por darnos su opinion!");
 			}
 		}else{
-			System.out.println("Una peticion de grabar usuario ha llegado al servidor con datos obligatorios vacios!");
+			System.out.println("Una peticion de grabar comentario ha llegado al servidor con datos obligatorios vacios!");
+			response.getOutputStream().println("Revise los campos del comentario.Email y contenido son campos obligatorios.");
 		}
 	}
 }

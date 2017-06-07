@@ -14,11 +14,13 @@
 <link href="./assets/MagnificPopUp/magnific-popup.css" rel="stylesheet" type="text/css"
 	media="all">
 <!-- /--------------------JSP-------------------------------------------- -->
+<!-- Esta parte esta omitida y controlada con JavaScript abajo para prevenir el refresco de la página al mandar el form
 <jsp:useBean id="comentBean" class="modelos.Comentario" scope="request" />
 <jsp:setProperty name="comentBean" property="*" />
 <%if(request.getParameter("content")!=null && request.getParameter("email")!=null){%>
 <jsp:forward page="/ControladorComentario" />
 <%}%>
+ -->
 </head>
 <body id="top">
 	<!-- ################################################################################################ -->
@@ -65,7 +67,7 @@
 						<li><a href="#">Más</a></li>
 					</ul></li>
 
-				<li><a href="./presupuesto.jsp" class="btn" style="padding: .8em">Calcula
+				<li><a href="./ControladorPresupuesto" class="btn" style="padding: .8em">Calcula
 						presupuesto</a></li>
 				<li><a href="#" class="active">Contacto</a></li>
 			</ul>
@@ -254,16 +256,19 @@
 				<div id="error_messages">
 				
 				</div>
-				<form id="newsletter" method="post">
+				<form id="newsletter" action="./ControladorComentario" method="post">
 					<fieldset>	
 						<legend>Contacto</legend>
 						Nombre: 
-						<input class="btmspace-15" type="text" name="name"
+						<input class="btmspace-15" type="text" name="name" id="name"
 							placeholder="Nombre" /> 
 						Correo electrónico: <input
-							class="btmspace-15" type="email" name="email" placeholder="Email" />
+							class="btmspace-15" type="email" name="email" id="val" placeholder="Email" />
 						Comentario:
-						<textarea class="btmspace-15" name="content" style="width: 100%; height: 7em;" placeholder="Su comentario..."></textarea>
+						<textarea class="btmspace-15" name="content" id="content" style="width: 100%; height: 7em;" placeholder="Su comentario..."></textarea>
+										<div id="mensajes_servidor">
+					
+				</div>
 						<button type="submit" value="submit">Enviar</button>
 					</fieldset>
 				</form>
@@ -280,7 +285,7 @@
 	<div class="wrapper row5">
 		<div id="copyright" class="hoc clear">
 			<!-- ################################################################################################ -->
-			<p class="fl_left">
+			<p class="fl_left">	
 				Copyright &copy; 2017 - Todos los derechos reservados - <a href="#">El
 					Martillo</a>
 			</p>
@@ -316,6 +321,28 @@
 			      src:'./Modals/login.jsp',
 			      type: 'iframe'
 			  }
+			});
+		$('#newsletter').on('submit',function(e){
+			e.preventDefault();
+			if($('#content').val()!="" && $('#email').val()!=""){
+				$.ajax({
+					url : $(this).attr('action'),
+		            type: "POST",
+		            data: $(this).serialize(),
+		            success: function (data, textStatus, request) {
+		            	console.log("Tipo de data recibido:_"+request.getResponseHeader("content-type"));
+		            	if(request.getResponseHeader("content-type")=="text/plain;charset=charset=UTF-8"){
+			            	console.log('Mensaje recibido del servidor:_"'+data+'"');
+			            	$('#mensajes_servidor').empty();
+			            	$('#mensajes_servidor').append("<p style='text-align:center;color:red;'>"+data+"<p>");	
+		            	}
+		            },
+		            error: function (xhr, status, error) {
+		            	console.log(xhr.responseText);
+		            	$('#mensajes_servidor').append("Error al enviar la peticion al servidor.Compruebe su coneccion!");
+		            }
+					})	
+			}
 			});
 	    });
 		var currentSlide = 0;

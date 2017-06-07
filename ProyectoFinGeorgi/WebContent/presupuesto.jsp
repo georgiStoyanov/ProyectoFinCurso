@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" import="modelos.Comentario"%>
+	pageEncoding="ISO-8859-1" import="modelos.*,java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -163,41 +163,57 @@ fieldset {
 	</div>
 
 	<div style="background: white; width: 80%; margin: auto;">
-		<form>
+
 			<div class="indicador_pasos"></div>
 			<fieldset>
-				<h2>Información general</h2>
+				<h2>Información obra</h2>
 				<div class="row">
 					<div class=" col-lg-6 col-md-6">
-						<label>Seleccione categoria del servicio deseado:</label> <select
+						<label>Seleccione categoría del servicio deseado:</label> <select id="categoria_select"
 							class="form-control">
+							<%
+							if (request.getAttribute("listaSubCategorias") != null && request.getAttribute("listaCategorias")!=null) {
+								ArrayList<SubCategoria> listaSubCategorias=(ArrayList<SubCategoria>) request.getAttribute("listaSubCategorias");
+								ArrayList<Categoria> listaCategorias=(ArrayList<Categoria>) request.getAttribute("listaCategorias");
+							%>
 							<option selected disabled>Seleccione una categoría</option>
-							<optgroup label="Reformas">
-								<option>Reforma Vivienda</option>
-								<option>Reforma Baño</option>
-								<option>Reforma Cocina</option>
-								<option>Reforma Oficina</option>
-								<option>Reforma Local Comercial</option>
-							</optgroup>
-							<optgroup label="Obras Menores">
-								<option>Parquetista</option>
-								<option>Fontanero</option>
-								<option>Pintor</option>
-								<option>Carpintero</option>
-								<option>Tejados</option>
-								<option>Albañiles</option>
-							</optgroup>
-							<optgroup label="Otros servicios">
-								<option>Desescombrar</option>
-								<option>Montar muebles</option>
-								<option>Instalacion complementos</option>
-							</optgroup>
+							<%
+							
+							for(Categoria cat:listaCategorias){
+									%> <optgroup label="<%out.print(cat.getNombre_categoria());%>"><%
+								
+								for(SubCategoria servicio:listaSubCategorias){ 
+									if(servicio.getCategoria().equals(cat.getNombre_categoria())){
+							%>
+							<option value="<%out.println(servicio.getId_sub_categoria());%>"><%out.println(servicio.getNombre_sub_categoria());%></option>
+
+							<%
+							
+									}
+								}
+							}%>
+								</optgroup>
+							<%
+							}else{%>
+								<option selected disabled>Error de servidor!</option>
+								<% 
+							}
+							%>
 						</select>
+					</div>
+					<div id="servicios_compatibles" class="row">
+						<% if(request.getAttribute("listaServicios")!=null){
+							ArrayList<Servicio> listaServicios=(ArrayList<Servicio>) request.getAttribute("listaServicios");
+							for(Servicio ser:listaServicios){
+								out.print(ser.getNombre());
+							}
+						}
+						%>
 					</div>
 				</div>
 			</fieldset>
 			<fieldset>
-				<h2>Información Obra</h2>
+				<h2>Precios orientativos</h2>
 				<div class="row" id="informacion_obra"></div>
 				<input type="text" class="form-control" />
 			</fieldset>
@@ -205,7 +221,18 @@ fieldset {
 				<h2>Informacion contacto</h2>
 				<input type="text" class="form-control" />
 			</fieldset>
-		</form>
+		<!-- Este campo es por si el usuario no ecuentra lo que busca y pide ayuda
+						<form id="necesito_ayuda_calcular" class="hidden" action="./ControladorComentario" method="post">
+						<legend>Contacto</legend>
+						Nombre: 
+						<input class="btmspace-15" type="text" name="name" id="name"
+							placeholder="Nombre" /> 
+						Correo electrónico: <input
+							class="btmspace-15" type="email" name="email" id="val" placeholder="Email" />
+						Descripcion del problema:
+						<textarea class="btmspace-15" name="content" id="content" style="width: 100%; height: 7em;" placeholder="Descripcion"></textarea>
+						<button type="submit" value="submit">Enviar</button>
+		</form>-->
 		<input type="button" class="btn btn_anterior" value="Anterior">
 		<input type="button" class="btn btn_siguiente pull-right"
 			value="Siguente">
@@ -245,8 +272,89 @@ fieldset {
 	<script type="text/javascript">
 		//
 		$(document).ready(function() {
-
+			$('#categoria_select').on('change',function(ev){
+				sacaServicios($(this)[0].options[this.selectedIndex].text);
+			})
 		});
+		function sacaServicios(valor){
+			switch(valor){
+				case "Reforma Vivienda":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Reforma Baño":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Reforma Cocina":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Reforma Oficina":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Reforma Local Comercial":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Parquetista":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Fontanero":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Pintor":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Carpintero":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Tejados":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Albañil":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Desescombrar":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Montar muebles":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Instalación complementos":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Electricistas":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Electrodomésticos":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Aire acondicionado":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+				case "Montar muebles":
+					console.log('Seleccionado:_'+valor);
+					reformaVivienda();
+					break;
+			}
+		}
+		function reformaVivienda(){
+			$('#servicios_compatibles').append();
+		}
 	</script>
 </body>
 </html>

@@ -2,30 +2,22 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
-
 <head>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
 <title>Iniciar sesión El Martillo</title>
-
 <!-- Bootstrap Core CSS -->
 <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 <!-- MetisMenu CSS -->
 <link href="../assets/metisMenu/metisMenu.min.css" rel="stylesheet">
-
 <!-- Custom CSS -->
 <link href="../assets/custom/css/sb-admin-2.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="../assets/font-awesome-4.0.3/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
-
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -37,7 +29,6 @@
 <%if(request.getParameter("email")!=null && request.getParameter("pass")!=null){%>
 <jsp:forward page="/ControladorUsuario" />
 <%}%>
-
 <!-- jQuery -->
 <script src="./../assets/custom/js/jquery-1.8.2.min.js"></script>
 <style>
@@ -57,9 +48,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
 }
 </style>
 </head>
-
 <body>
-
 	<div class="container">
 		<div class="row">
 			<div class="">
@@ -75,14 +64,16 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
 										name="email" id="email" type="email" autofocus>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Password" id="pass" name="pass"
-										type="password" value="">
+									<input class="form-control" placeholder="Password" id="pass"
+										name="pass" type="password" value="">
 								</div>
 								<div class="checkbox">
-									<label> <input name="remember" type="checkbox" id="guarda_login"
-										value="recuerda">¡Guarda estos datos!
+									<label> <input name="remember" type="checkbox"
+										id="guarda_login" value="recuerda">¡Guarda estos
+										datos!
 									</label>
 								</div>
+								<div id="comunicacion_login" class="row"></div>
 								<!-- Change this to a button or input when using this as a form -->
 								<input type="submit" class="btn btn-lg btn-block"
 									value="Iniciar sesión"></a>
@@ -93,19 +84,42 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
 			</div>
 		</div>
 	</div>
-
-
 	<!-- Bootstrap Core JavaScript -->
 	<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="../assets/metisMenu/metisMenu.min.js"></script>
-
 	<!-- Custom Theme JavaScript -->
 	<script src="../assets/custom/js/sb-admin-2.js"></script>
-
 	<script type="text/javascript">
 	$( document ).ready(function() {
+		$('#user_form').on('submit',function(e){
+			e.preventDefault();
+			if($('#email').val()!="" && $('#pass').val()!=""){
+				$.ajax({
+					url : $(this).attr('action'),
+		            type: "POST",
+		            data: $(this).serialize(),
+		            success: function (data, textStatus, request) {
+		            	console.log('Mensaje recibido del servidor:_"'+data+'"');
+		            	console.log('Tipo de dato recibido:_'+request.getResponseHeader("content-type"));
+		            	if(request.getResponseHeader("content-type")=="text/plain;charset=UTF-8"){
+		            	$('#comunicacion_login').empty();
+		            	$('#comunicacion_login').append("<p style='color:red;text-align:center'>"+data+"</p>");
+		            	}
+		            },
+		            error: function () {
+		            	$('#comunicacion_login').empty();
+		            	$('#comunicacion_login').append("<p style='color:red;text-align:center'>Error al enviar la peticion al servidor.Compruebe su coneccion!</p>");
+		            }
+					})
+			}
+			else{
+				$('#comunicacion_login').empty();
+				$('#comunicacion_login').append("<p style='color:red;text-align:center'>Todos los campos son obligatorios!</p>");
+			}
+			});
+		
+		
 		var datosLogin=localStorage.getItem('ElMartillo');
 	    if(localStorage.getItem('ElMartillo')!=null){
 	    	datosLogin=JSON.parse(datosLogin);
@@ -123,7 +137,5 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
 		}
 		});
 	</script>
-
 </body>
-
 </html>
