@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" import="modelos.Comentario"%>
+	pageEncoding="UTF-8" import="modelos.*,services.*,java.util.ArrayList,java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,14 +13,22 @@
 	media="all">
 <link href="./assets/MagnificPopUp/magnific-popup.css" rel="stylesheet" type="text/css"
 	media="all">
+	<%!
+private List<Categoria> listaCategorias;
+private List<SubCategoria> listaSubCategorias;
+public void jspInit() {    
+this.listaCategorias=new CategoriaService().getCategorias();
+this.listaSubCategorias=new SubCategoriaService().getSubCategorias();
+}
+%>
 <!-- /--------------------JSP-------------------------------------------- -->
-<!-- Esta parte esta omitida y controlada con JavaScript abajo para prevenir el refresco de la página al mandar el form
-<jsp:useBean id="comentBean" class="modelos.Comentario" scope="request" />
-<jsp:setProperty name="comentBean" property="*" />
-<%if(request.getParameter("content")!=null && request.getParameter("email")!=null){%>
+<!-- Esta parte esta omitida y controlada con JavaScript abajo para prevenir el refresco de la pÃ¡gina al mandar el form
+-->
+<%
+	jspInit();
+if(request.getParameter("content")!=null && request.getParameter("email")!=null){%>
 <jsp:forward page="/ControladorComentario" />
 <%}%>
- -->
 </head>
 <body id="top">
 	<!-- ################################################################################################ -->
@@ -32,10 +40,28 @@
 			<nav id="mainav" class="fl_left">
 			<ul class="clear">
 				<li class="active"><a href="index.jsp">El Martillo</a></li>
-				<li><a class="drop" href="#">Reformas</a>
+				<% if(this.listaCategorias!=null && this.listaCategorias.size()>0){
+					for(Categoria cat:this.listaCategorias){
+						%>
+							<li><a class="drop" href="#"><%out.print(cat.getNombre_categoria()); %></a>
+							<ul>
+						<% 
+						for(SubCategoria subCat: listaSubCategorias){
+							if(subCat.getCategoria().equals(cat.getNombre_categoria())){
+							%>
+								<li><a href="./ControladorPresupuesto?subCategoria=<%out.print(subCat.getId_sub_categoria());%>"><%out.print(subCat.getNombre_sub_categoria());%></a></li>		
+							<%
+							}
+						}
+						%>
+							</ul></li>
+						<% 
+					} 
+				}%>
+				<!-- <li><a class="drop" href="#">Reformas</a>
 					<ul>
 						<li><a href="#">Reformas Viviendas</a></li>
-						<li><a href="#">Reformas Baños</a></li>
+						<li><a href="#">Reformas BaÃ±os</a></li>
 						<li><a href="#">Reformas Cocinas</a></li>
 						<li><a href="#">Reformas Oficinas</a></li>
 						<li><a href="#">Locales Comerciales</a></li>
@@ -47,13 +73,13 @@
 						<li><a href="#">Fontaneros</a></li>
 						<li><a href="#">Pintores</a></li>
 						<li><a href="#">Tejados</a></li>
-						<li><a href="#">Albañiles</a></li>
+						<li><a href="#">AlbaÃ±iles</a></li>
 						<li><a href="#">Carpinteros</a></li>
 					</ul></li>
 
 				<li><a class="drop" href="#">Instalaciones</a>
 					<ul>
-						<li><a href="#">Electrodomésticos</a></li>
+						<li><a href="#">ElectrodomÃ©sticos</a></li>
 						<li><a href="#">Muebles</a></li>
 						<li><a href="#">Aire acondicionado</a></li>
 						<li><a href="#">Antenas</a></li>
@@ -63,10 +89,10 @@
 					<ul>
 						<li><a href="#">Desescombrar</a></li>
 						<li><a href="#">Montaje Muebles</a></li>
-						<li><a href="#">Instalación complementos</a></li>
-						<li><a href="#">Más</a></li>
+						<li><a href="#">InstalaciÃ³n complementos</a></li>
+						<li><a href="#">MÃ¡s</a></li>
 					</ul></li>
-
+				-->
 				<li><a href="./ControladorPresupuesto" class="btn" style="padding: .8em">Calcula
 						presupuesto</a></li>
 				<li><a href="#" class="active">Contacto</a></li>
@@ -118,8 +144,8 @@
 			<p>Calcula presupuestos ilimitados.</p>
 			<footer>
 			<ul class="nospace inline pushright">
-				<li><a class="btn" href="./presupuesto.jsp">Calcula Presupuesto</a></li>
-				<li><a class="btn inverse" id="soyCliente" href="#">Soy cliente</a></li>
+				<li><a class="btn" href="./ControladorPresupuesto">Calcula Presupuesto</a></li>
+				<li><a class="btn inverse" id="soyCliente" href="#">Administrar</a></li>
 			</ul>
 			</footer> </article>
 			<button class="w3-button w3-display-left"
@@ -146,7 +172,7 @@
 			<h4 class="font-x1 uppercase">
 				<a href="#">Reformas</a>
 			</h4>
-			<p>de todo tipo de viviendas, baños, oficinas y locales
+			<p>de todo tipo de viviendas, baÃ±os, oficinas y locales
 				comerciales.</p>
 			</article>
 			<article class="one_quarter"> <i class="icon fa fa-cogs"></i>
@@ -154,14 +180,14 @@
 				<a href="#">Instalaciones</a>
 			</h4>
 			<p>de electrodomesticos, cocinas , aires acondicionados, sistemas
-				eléctricos y mas.</p>
+				elÃ©ctricos y mas.</p>
 			</article>
 			<article class="one_quarter"> <i
 				class="icon fa fa-paint-brush"></i>
 			<h4 class="font-x1 uppercase">
 				<a href="#">Obras Menores</a>
 			</h4>
-			<p>Parquetistas, pintores, fontaneros, carpinteros, albañiles.</p>
+			<p>Parquetistas, pintores, fontaneros, carpinteros, albaÃ±iles.</p>
 			</article>
 			<article class="one_quarter"> <i class="icon fa fa-truck"></i>
 			<h4 class="font-x1 uppercase">
@@ -185,7 +211,7 @@
 			<section style="width:100%;height:100%" class="box center">
 			<!-- ################################################################################################ -->
 			<div class="center btmspace-50">
-				<h2 class="heading font-x3">Últimos proyectos</h2>
+				<h2 class="heading font-x3">Ãšltimos proyectos</h2>
 			</div>
 			<figure id="logos">
 			<ul class="nospace group">
@@ -212,7 +238,7 @@
 			<!-- ################################################################################################ -->
 			<div class="group">
 				<section class="one_half first">
-				<h6 class="heading font-x2 btmspace-50">¿Porque elegir a
+				<h6 class="heading font-x2 btmspace-50">Â¿Porque elegir a
 					nosotros?</h6>
 				<ul class="nospace">
 					<li class="btmspace-30"><article> -Nuestra empresa
@@ -222,11 +248,11 @@
 						con nuestra empresa para todo relacionado con las reformas y el
 						mantenimiento de su local,vivienda o edificio sin ninguna
 						preocupacion.Disponemos de muchos profesionales experenciados en
-						reformas de baños, hoteles, cocinas, oficinas, fachadas, locales
+						reformas de baÃ±os, hoteles, cocinas, oficinas, fachadas, locales
 						comerciales, viviendas y mucho mas. Relizamos varios tipos de
 						instalaciones como las de electrodomesticos y cocinas,montajes de
 						muebles etc. </article></li>
-					<li><article> Disponemos de un servicio de atención
+					<li><article> Disponemos de un servicio de atenciÃ³n
 						al cliente.Durante todo el proceso del trabajo en la obra Y A
 						POSTERIORI.</article></li>
 					<li style="margin-top: 2em; margin-bottom: 2em;"><article>
@@ -235,22 +261,22 @@
 						<ul>
 							<li>Seguimiento orientativo del progreso del trabajo en
 								estadistica cada dia.</li>
-							<li>Facturacion automática.</li>
+							<li>Facturacion automÃ¡tica.</li>
 							<li>Proceso de pago automatizado.</li>
-							<li>Generación autmática de fechas aproximadas de la
-								realización del trabajo.</li>
+							<li>GeneraciÃ³n autmÃ¡tica de fechas aproximadas de la
+								realizaciÃ³n del trabajo.</li>
 						</ul>
 						</article></li>
 					<li><article> Esta plataforma web esta especialmente
-						diseñada para nuestros clientes.Y con ella intentamos a facilitar
-						lo máximo posible el proceso de
-						contratación,facturación,segumiento del trabajo realizado por
-						nosotros y la plaificación del plazo en que el trabajo se va
+						diseÃ±ada para nuestros clientes.Y con ella intentamos a facilitar
+						lo mÃ¡ximo posible el proceso de
+						contrataciÃ³n,facturaciÃ³n,segumiento del trabajo realizado por
+						nosotros y la plaificaciÃ³n del plazo en que el trabajo se va
 						realizar.</article></li>
 				</ul>
 				</section>
 				<section class="one_half">
-				<h6 class="heading font-x3 btmspace-50">Escríbenos</h6>
+				<h6 class="heading font-x3 btmspace-50">EscrÃ­benos</h6>
 				<p>Se puede poner en contacto con nosotros para cualquier duda
 					que tiene.Un agente le contestara lo antes posible.</p>
 				<div id="error_messages">
@@ -262,7 +288,7 @@
 						Nombre: 
 						<input class="btmspace-15" type="text" name="name" id="name"
 							placeholder="Nombre" /> 
-						Correo electrónico: <input
+						Correo electrÃ³nico: <input
 							class="btmspace-15" type="email" name="email" id="val" placeholder="Email" />
 						Comentario:
 						<textarea class="btmspace-15" name="content" id="content" style="width: 100%; height: 7em;" placeholder="Su comentario..."></textarea>
@@ -341,7 +367,7 @@
 		            	console.log(xhr.responseText);
 		            	$('#mensajes_servidor').append("Error al enviar la peticion al servidor.Compruebe su coneccion!");
 		            }
-					})	
+					})
 			}
 			});
 	    });

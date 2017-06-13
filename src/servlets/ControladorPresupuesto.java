@@ -58,9 +58,7 @@ public class ControladorPresupuesto extends HttpServlet {
 				System.out.println("-------------------------------------------------------El parseado de integer fallo al intentar recoger servicios de la base de datos!--------------------------------------");
 			}
 		}
-		request.setAttribute("listaSubCategorias", new SubCategoriaService().getSubCategorias());
-		request.setAttribute("listaCategorias", new CategoriaService().getCategorias());
-		RequestDispatcher rd=request.getRequestDispatcher("./presupuesto.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("./Presupuesto1.jsp");
 		rd.forward(request, response);
 	}
 

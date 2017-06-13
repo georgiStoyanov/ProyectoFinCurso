@@ -1,0 +1,69 @@
+------------------------------------------------------------------Notas---------------------------------------------------------------
+Los posibles servicios se pueden añadir al mismo fieldset con checkboxes y el segundo paso sera especificar los metros cuadrados o lineales de los servicios seleccionados.
+El tercer paso sera calcular el presupuesto y el cuarto paso sera la informacion de contanto y la peticion de inspeccion visual de la obra.
+Se puede hacer un boton que si falte algun servicio deseado que se calcule el presupuesto y que se mande una descripcion de lo que se va pedir hacer.
+
+Lo que haran los botones del menu sera solo redirigir a la página de presupuestos con la categoria ya seleccionada.
+
+Es posible que toda esta informacion se saque de la base de datos.(no me dara tiempo hacer!)
+
+
+------------------------------------------------------------------Plantillas usadas---------------------------------------------------
+MyWebSolution-bussines template
+Dashgum free admin
+
+---------------------------------------------------------
+La libreria del mysql connector esta en el directorio del servidor.--> el context-xml esta configurado en eclipse aun que se podria configurar en la carpeta del apache de fuera que seria 
+el caso del uso de un servidor real no para debugear.
+
+
+La parte del usuario esta hecha con MyWebSoluition y la parte de los trabajadores esta hecha con dashgum.
+
+
+
+----------------------------------------------------------------Navbar Manual----------------------------------------
+
+
+<nav id="mainav" class="fl_left">
+			<ul class="clear">
+				<li class="active"><a href="index.jsp">El Martillo</a></li>
+				<li><a class="drop" href="#">Reformas</a>
+					<ul>
+						<li><a href="#">Reformas Viviendas</a></li>
+						<li><a href="#">Reformas Baños</a></li>
+						<li><a href="#">Reformas Cocinas</a></li>
+						<li><a href="#">Reformas Oficinas</a></li>
+						<li><a href="#">Locales Comerciales</a></li>
+					</ul></li>
+
+				<li><a class="drop" href="#">Obras menores</a>
+					<ul>
+						<li><a href="#">Parquetistas</a></li>
+						<li><a href="#">Fontaneros</a></li>
+						<li><a href="#">Pintores</a></li>
+						<li><a href="#">Tejados</a></li>
+						<li><a href="#">Albañiles</a></li>
+						<li><a href="#">Carpinteros</a></li>
+					</ul></li>
+
+				<li><a class="drop" href="#">Instalaciones</a>
+					<ul>
+						<li><a href="#">Electrodomésticos</a></li>
+						<li><a href="#">Muebles</a></li>
+						<li><a href="#">Aire acondicionado</a></li>
+						<li><a href="#">Antenas</a></li>
+						<li><a href="#">Electricistas</a></li>
+					</ul></li>
+				<li><a class="drop" href="#">Otros</a>
+					<ul>
+						<li><a href="#">Desescombrar</a></li>
+						<li><a href="#">Montaje Muebles</a></li>
+						<li><a href="#">Instalación complementos</a></li>
+						<li><a href="#">Más</a></li>
+					</ul></li>
+
+				<li><a href="./ControladorPresupuesto" class="btn" style="padding: .8em">Calcula
+						presupuesto</a></li>
+				<li><a href="#" class="active">Contacto</a></li>
+			</ul>
+			</nav>
